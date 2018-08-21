@@ -19,12 +19,12 @@ export class CZMLComponent implements OnInit {
 	coords: any[] = [];
 
 	constructor(public http: HttpClient) {
-		this.viewerOptions = {
-			imageryProvider: null
-		};
 	}
 
 	ngOnInit() {
+		this.viewerOptions = {
+			globe: false
+		};
 	}
 
 	onViewerReady(evt: any) {
@@ -56,6 +56,9 @@ export class CZMLComponent implements OnInit {
 				const coords: any[] = [];
 				const coords2: any[] = [];
 				geos.forEach((geo) => {
+					if (geo.properties.Element > 1000) {
+						return;
+					}
 					if (!coords[geo.properties.Element]) {
 						coords[geo.properties.Element] = [];
 					}

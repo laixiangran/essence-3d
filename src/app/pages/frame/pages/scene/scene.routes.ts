@@ -8,6 +8,7 @@ import { RenderEffectComponent } from './pages/render-effect/render-effect.compo
 import { PositionInfoComponent } from './pages/position-info/position-info.component';
 import { DynamicWaterComponent } from './pages/dynamic-water/dynamic-water.component';
 import { CZMLComponent } from './pages/czml/czml.component';
+import {ThreeComponent} from './pages/three/three.component';
 
 const SceneRoutes: Routes = [
 	{
@@ -41,6 +42,10 @@ const SceneRoutes: Routes = [
 			{
 				path: 'czml',
 				component: CZMLComponent
+			},
+			{
+				path: 'three',
+				component: ThreeComponent
 			},
 			{
 				path: '',

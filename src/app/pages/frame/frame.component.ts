@@ -85,6 +85,11 @@ export class FrameComponent {
 						url: '/frame/scene/czml',
 						icon: 'fa fa-map',
 						label: '叠加CZML'
+					},
+					{
+						url: '/frame/scene/three',
+						icon: 'fa fa-map',
+						label: '集成threejs'
 					}
 				]
 			},

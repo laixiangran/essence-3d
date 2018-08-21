@@ -12,6 +12,7 @@ import { PositionInfoComponent } from './pages/position-info/position-info.compo
 import { DynamicWaterComponent } from './pages/dynamic-water/dynamic-water.component';
 import { CZMLComponent } from './pages/czml/czml.component';
 import { ENgxCesiumModule } from 'e-ngx-cesium';
+import { ThreeComponent } from './pages/three/three.component';
 
 @NgModule({
 	imports: [
@@ -29,7 +30,8 @@ import { ENgxCesiumModule } from 'e-ngx-cesium';
 		RenderEffectComponent,
 		PositionInfoComponent,
 		DynamicWaterComponent,
-		CZMLComponent
+		CZMLComponent,
+		ThreeComponent
 	]
 })
 export class SceneModule {}

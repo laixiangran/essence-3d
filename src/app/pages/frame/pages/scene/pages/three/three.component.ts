@@ -21,7 +21,7 @@ export class ThreeComponent implements OnInit {
 	ngOnInit() {
 		this.container = this.containerRef.nativeElement;
 		this.init();
-		// this.animate();
+		this.animate();
 	}
 
 	init() {
@@ -37,7 +37,6 @@ export class ThreeComponent implements OnInit {
 		});
 		this.renderer.setSize(this.container.offsetWidth, this.container.offsetHeight);
 		this.container.appendChild(this.renderer.domElement);
-		this.renderer.render(this.scene, this.camera);
 	}
 
 	animate() {

@@ -2,6 +2,8 @@
 
 基于 cesium 的三维平台
 
+![示意图](./src/assets/images/demo.png)
+
 ```shell
 npm install -g @angular-cli // 全局安装angular-cli
 

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import Scene = Cesium.Scene;
 import Globe = Cesium.Globe;
 import CzmlDataSource = Cesium.CzmlDataSource;
 import Cartesian3 = Cesium.Cartesian3;
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
 	templateUrl: './czml.component.html',
@@ -56,9 +56,9 @@ export class CZMLComponent implements OnInit {
 				const coords: any[] = [];
 				const coords2: any[] = [];
 				geos.forEach((geo) => {
-					if (geo.properties.Element > 1000) {
-						return;
-					}
+					// if (geo.properties.Element > 5000 && geo.properties.Element > 6000) {
+					// 	return;
+					// }
 					if (!coords[geo.properties.Element]) {
 						coords[geo.properties.Element] = [];
 					}
@@ -87,6 +87,27 @@ export class CZMLComponent implements OnInit {
 			'version': '1.0'
 		}];
 		coords.forEach((coord, index) => {
+			const height: number = (coord[2] + coord[5] + coord[8]) / 3 / 10;
+			let rgba: any[];
+			if (height > 55) {
+				rgba = [191, 0, 0, 255]
+			} else if (height > 50 && height <= 55) {
+				rgba = [191, 96, 0, 255]
+			} else if (height > 45 && height <= 50) {
+				rgba = [191, 191, 0, 255]
+			} else if (height > 40 && height <= 45) {
+				rgba = [96, 191, 0, 255]
+			} else if (height > 35 && height <= 40) {
+				rgba = [0, 191, 0, 255]
+			} else if (height > 30 && height <= 35) {
+				rgba = [0, 167, 72, 255]
+			} else if (height > 20 && height <= 30) {
+				rgba = [0, 143, 143, 255]
+			} else if (height > 10 && height <= 20) {
+				rgba = [0, 0, 191, 255]
+			} else {
+				rgba = [96, 0, 96, 255]
+			}
 			const py = {
 				'id': top ? 'top' + index : 'bottom' + index,
 				'name': top ? 'top' + index : 'bottom' + index,
@@ -97,13 +118,13 @@ export class CZMLComponent implements OnInit {
 					'material': {
 						'solidColor': {
 							'color': {
-								'rgba': [55, 96, 151, 255]
+								'rgba': rgba
 							}
 						}
 					},
 					'extrudedHeight': 0,
 					'perPositionHeight': true,
-					'outline': true,
+					'outline': false,
 					'outlineColor': {
 						'rgba': [255, 255, 255, 10]
 					}

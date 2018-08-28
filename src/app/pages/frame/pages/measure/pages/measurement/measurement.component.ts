@@ -19,11 +19,11 @@ export class MeasurementComponent implements OnInit {
 	viewer: Viewer;
 	scene: Scene;
 	globe: Globe;
+	selectedMode: SelectItem = {label: '空间测量', value: 'space'};
 	modes: SelectItem[];
 
 	constructor() {
 		this.modes = [
-			{label: '--选择测量模式--', value: null},
 			{label: '空间测量', value: 'space'},
 			{label: '贴地测量', value: 'affixedTo'}
 		];
@@ -44,24 +44,23 @@ export class MeasurementComponent implements OnInit {
 				roll: 0.0009471063581933947
 			}
 		});
+		this.rangeFinding();
 	}
 
 	/**
 	 * 测距
 	 */
 	rangeFinding() {
-		const positions: Cartesian3[] = Cartesian3.fromDegreesArray([-115, 35, -114, 36]);
-		const flatPositions: number[] = Cesium['PolylinePipeline'].generateArc({
-			positions: positions,
-			granularity: 0.000001
-		});
-		console.log(flatPositions);
+		const positions: Cartesian3[] = Cartesian3.fromDegreesArray([
+			86.953793, 27.928257,
+			86.953793, 27.988257,
+			86.896497, 27.988257
+		]);
 		const cartographicArray: Cartographic[] = [];
-		for (let i = 0; i < flatPositions.length; i += 3) {
-			const cartesian: Cartesian3 = Cesium.Cartesian3.unpack(flatPositions, i);
-			cartographicArray.push(this.globe.ellipsoid.cartesianToCartographic(cartesian));
+		for (let i = 0; i < positions.length; i += 3) {
+			cartographicArray.push(this.globe.ellipsoid.cartesianToCartographic(positions[i]));
 		}
-		sampleTerrain(this.viewer.terrainProvider, 15, cartographicArray)
+		sampleTerrain(this.viewer.terrainProvider, 18, cartographicArray)
 			.then((raisedPositionsCartograhpic) => {
 				const raisedPositions: Cartesian3[] = this.globe.ellipsoid.cartographicArrayToCartesianArray(raisedPositionsCartograhpic);
 				console.log(raisedPositions);
@@ -69,6 +68,7 @@ export class MeasurementComponent implements OnInit {
 					polyline: new PolylineGraphics({
 						positions: raisedPositions,
 						width: 5,
+						clampToGround: true,
 						material: Cesium.Color.RED
 					})
 				}));

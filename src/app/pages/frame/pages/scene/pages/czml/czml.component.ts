@@ -43,8 +43,10 @@ export class CZMLComponent implements OnInit {
 		this.getCZMLData().then((data: any) => {
 			this.coords = data[0];
 			this.coords2 = data[1];
-			this.addCZML(this.coords, true);
-			this.addCZML(this.coords2, false);
+			const num: number = 1000;
+			for (let i: number = 0; i < Math.ceil(this.coords.length / num); i++) {
+				this.addCZML(this.coords.slice(i * num, (i + 1) * num), true);
+			}
 		});
 	}
 
@@ -59,16 +61,13 @@ export class CZMLComponent implements OnInit {
 				const coords: any[] = [];
 				const coords2: any[] = [];
 				geos.forEach((geo) => {
-					if (geo.properties.Element > 30000) {
-						return;
-					}
 					if (!coords[geo.properties.Element]) {
 						coords[geo.properties.Element] = [];
 					}
 					if (!coords2[geo.properties.Element]) {
 						coords2[geo.properties.Element] = [];
 					}
-					geo.coordinates[2] = geo.coordinates[2] * 5;
+					geo.coordinates[2] = geo.coordinates[2] * 10;
 					if (coords[geo.properties.Element].length < 9) {
 						[].push.apply(coords[geo.properties.Element], geo.coordinates.slice(0, 3));
 					} else {
@@ -91,7 +90,7 @@ export class CZMLComponent implements OnInit {
 			'version': '1.0'
 		}];
 		coords.forEach((coord, index) => {
-			const height: number = (coord[2] + coord[5] + coord[8]) / 3 / 5;
+			const height: number = (coord[2] + coord[5] + coord[8]) / 3 / 10;
 			let rgba: any[];
 			if (height > 55) {
 				rgba = [191, 0, 0, 255]
@@ -130,7 +129,7 @@ export class CZMLComponent implements OnInit {
 					'perPositionHeight': true,
 					'outline': true,
 					'outlineColor': {
-						'rgba': [255, 255, 255, 20]
+						'rgba': [255, 255, 255, 10]
 					}
 				}
 			};

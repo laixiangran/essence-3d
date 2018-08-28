@@ -39,11 +39,6 @@ export class DynamicWaterComponent implements OnInit {
 			{ label: '全球加载', value: 'globe' },
 			{ label: '区域加载', value: 'area' }
 		];
-		this.viewerOptions = {
-			imageryProvider: new ArcGisMapServerImageryProvider({
-				url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
-			})
-		};
 	}
 
 	ngOnInit() {

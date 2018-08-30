@@ -44,7 +44,7 @@ export class CZMLComponent implements OnInit {
 			this.coords = data[0];
 			this.coords2 = data[1];
 			const num: number = 1000;
-			for (let i: number = 0; i < Math.ceil(this.coords.length / num); i++) {
+			for (let i: number = 0; i < 13; i++) {
 				this.addCZML(this.coords.slice(i * num, (i + 1) * num), true);
 			}
 		});
